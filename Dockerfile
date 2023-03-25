@@ -20,6 +20,7 @@ COPY Pipfile.lock .
 RUN python -m pip install --upgrade pip
 RUN pip install pipenv
 RUN pipenv install --system
+RUN playwright install
 
 WORKDIR /app
 COPY . /app
