@@ -8,6 +8,7 @@ fastapi = "*"
 uvicorn = "*"
 pyppeteer = "*"
 playwright = "*"
+readability-lxml = "*"
 
 [dev-packages]
 
