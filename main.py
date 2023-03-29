@@ -12,8 +12,19 @@ async def get_page_html(url: str, wait_time: int) -> dict:
         browser = await p.chromium.launch(headless=True)
         context = await browser.new_context()
         page = await context.new_page()
-        await page.goto(url, wait_until="networkidle")
-        await asyncio.sleep(wait_time)
+
+        # Wait for either the 'domcontentloaded' event or the specified timeout
+        done, pending = await asyncio.wait(
+            [
+                page.goto(url, wait_until="domcontentloaded"),
+                asyncio.sleep(wait_time)
+            ],
+            return_when=asyncio.FIRST_COMPLETED
+        )
+
+        # Cancel any pending tasks
+        for task in pending:
+            task.cancel()
 
         html = await page.content()
 
