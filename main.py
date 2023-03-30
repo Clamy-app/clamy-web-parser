@@ -17,7 +17,7 @@ async def get_page_html(url: str, wait_time: int) -> dict:
         done, pending = await asyncio.wait(
             [
                 page.goto(url, wait_until="domcontentloaded"),
-                asyncio.sleep(wait_time)
+                asyncio.sleep(5)
             ],
             return_when=asyncio.FIRST_COMPLETED
         )
