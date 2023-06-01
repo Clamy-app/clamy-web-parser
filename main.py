@@ -10,7 +10,7 @@ app = FastAPI()
 async def get_page_html(url: str, wait_time: int) -> dict:
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True)
-        context = await browser.new_context()
+        context = await browser.new_context(user_agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36")
         page = await context.new_page()
 
         # Wait for either the 'domcontentloaded' event or the specified timeout
